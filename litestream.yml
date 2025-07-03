@@ -1,0 +1,16 @@
+# Use env vars for keys
+# LITESTREAM_ACCESS_KEY_ID
+# LITESTREAM_SECRET_ACCESS_KEY
+# access-key-id: xxx
+# secret-access-key: xxx
+
+# Default Litestream configuration
+dbs:
+  # Match the path for default modmail database path
+  - path: /app/data/db.sqlite
+    replicas:
+      - type: s3
+        bucket: $LITESTREAM_BUCKET
+        path: $LITESTREAM_PATH
+        endpoint: $LITESTREAM_ENDPOINT
+        force-path-style: $LITESTREAM_FORCE_PATH_STYLE

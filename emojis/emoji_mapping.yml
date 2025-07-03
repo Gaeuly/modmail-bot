@@ -1,0 +1,20 @@
+names:
+  case-sensitive: plain_text
+  logs: logs
+  message-circle-code: message_id
+  message-circle-reply: message_reply
+  message-circle: message
+  pencil: edit
+  settings: settings
+  shield: staff_user
+  tag: snippet
+  trash-2: delete
+  chevrons-right: prefix
+  hash: channel
+  corner-down-right: arrow_down_right
+  user: user
+  forward: forward
+  bell-off: silent
+  bell-ring: notify
+  heart: heart
+  clock: clock

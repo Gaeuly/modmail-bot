@@ -1,0 +1,283 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "17784a7b-bbc8-405d-8775-1d80d7fdff77",
+  "prevId": "eb4272bf-2c03-467e-a7d4-b1b0458051d3",
+  "tables": {
+    "messages": {
+      "name": "messages",
+      "columns": {
+        "thread_id": {
+          "name": "thread_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "message_id": {
+          "name": "message_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "author_id": {
+          "name": "author_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_staff": {
+          "name": "is_staff",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "staff_relayed_message_id": {
+          "name": "staff_relayed_message_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "user_dm_message_id": {
+          "name": "user_dm_message_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "is_anonymous": {
+          "name": "is_anonymous",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "is_plain_text": {
+          "name": "is_plain_text",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "is_snippet": {
+          "name": "is_snippet",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "messages_thread_id_threads_thread_id_fk": {
+          "name": "messages_thread_id_threads_thread_id_fk",
+          "tableFrom": "messages",
+          "tableTo": "threads",
+          "columnsFrom": [
+            "thread_id"
+          ],
+          "columnsTo": [
+            "thread_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "thread_id_check": {
+          "name": "thread_id_check",
+          "value": "\"messages\".\"thread_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "message_id_check": {
+          "name": "message_id_check",
+          "value": "\"messages\".\"message_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "author_id_check": {
+          "name": "author_id_check",
+          "value": "\"messages\".\"author_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "dm_message_id_check": {
+          "name": "dm_message_id_check",
+          "value": "\"messages\".\"staff_relayed_message_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "user_dm_message_id_check": {
+          "name": "user_dm_message_id_check",
+          "value": "\"messages\".\"user_dm_message_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "message_type_check": {
+          "name": "message_type_check",
+          "value": "(\"messages\".\"is_staff\" = 1 AND \"messages\".\"staff_relayed_message_id\" IS NOT NULL AND \"messages\".\"user_dm_message_id\" IS NULL)\n          OR\n          (\"messages\".\"is_staff\" = 0 AND \"messages\".\"user_dm_message_id\" IS NOT NULL AND \"messages\".\"staff_relayed_message_id\" IS NULL)"
+        }
+      }
+    },
+    "config": {
+      "name": "config",
+      "columns": {
+        "guild_id": {
+          "name": "guild_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "open_tag_id": {
+          "name": "open_tag_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "guild_id_check": {
+          "name": "guild_id_check",
+          "value": "\"config\".\"guild_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "open_tag_id_check": {
+          "name": "open_tag_id_check",
+          "value": "\"config\".\"open_tag_id\" NOT GLOB '*[^0-9]*'"
+        }
+      }
+    },
+    "snippets": {
+      "name": "snippets",
+      "columns": {
+        "guild_id": {
+          "name": "guild_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "guild_id_check": {
+          "name": "guild_id_check",
+          "value": "\"snippets\".\"guild_id\" NOT GLOB '*[^0-9]*'"
+        }
+      }
+    },
+    "threads": {
+      "name": "threads",
+      "columns": {
+        "guild_id": {
+          "name": "guild_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "thread_id": {
+          "name": "thread_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "recipient_id": {
+          "name": "recipient_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'\"2025-03-28T05:07:57.508Z\"'"
+        },
+        "closed_at": {
+          "name": "closed_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "closed_by": {
+          "name": "closed_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "guild_id_check": {
+          "name": "guild_id_check",
+          "value": "\"threads\".\"guild_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "thread_id_check": {
+          "name": "thread_id_check",
+          "value": "\"threads\".\"thread_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "recipient_id_check": {
+          "name": "recipient_id_check",
+          "value": "\"threads\".\"recipient_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "closedby_id_check": {
+          "name": "closedby_id_check",
+          "value": "\"threads\".\"closed_by\" NOT GLOB '*[^0-9]*'"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

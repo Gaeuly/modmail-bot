@@ -1,0 +1,29 @@
+{
+  "name": "sushii-modmail",
+  "module": "./src/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run ./src/index.ts",
+    "typecheck": "bun run tsc --skipLibCheck --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "drizzle-kit": "^0.30.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.0",
+    "discord-api-types": "^0.37.119",
+    "discord.js": "^14.19.3",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.40.1",
+    "hono": "^4.7.11",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
+    "zod": "^3.24.2"
+  }
+}

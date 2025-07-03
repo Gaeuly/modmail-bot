@@ -1,0 +1,466 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "15d01957-c96a-47c0-be9b-325943a2c8fd",
+  "prevId": "f66f1484-a19b-439c-b191-dd6fa97321a5",
+  "tables": {
+    "bot_emojis": {
+      "name": "bot_emojis",
+      "columns": {
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sha256": {
+          "name": "sha256",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "bot_emojis_name_unique": {
+          "name": "bot_emojis_name_unique",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "message_versions": {
+      "name": "message_versions",
+      "columns": {
+        "message_id": {
+          "name": "message_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "edited_at": {
+          "name": "edited_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'\"2025-05-18T22:03:13.441Z\"'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "message_versions_message_id_messages_message_id_fk": {
+          "name": "message_versions_message_id_messages_message_id_fk",
+          "tableFrom": "message_versions",
+          "tableTo": "messages",
+          "columnsFrom": [
+            "message_id"
+          ],
+          "columnsTo": [
+            "message_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "message_versions_message_id_version_pk": {
+          "columns": [
+            "message_id",
+            "version"
+          ],
+          "name": "message_versions_message_id_version_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "messages": {
+      "name": "messages",
+      "columns": {
+        "thread_id": {
+          "name": "thread_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "message_id": {
+          "name": "message_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "author_id": {
+          "name": "author_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_staff": {
+          "name": "is_staff",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "staff_relayed_message_id": {
+          "name": "staff_relayed_message_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "user_dm_message_id": {
+          "name": "user_dm_message_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "forwarded": {
+          "name": "forwarded",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "attachment_urls": {
+          "name": "attachment_urls",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "stickers": {
+          "name": "stickers",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "is_anonymous": {
+          "name": "is_anonymous",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "is_plain_text": {
+          "name": "is_plain_text",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "is_snippet": {
+          "name": "is_snippet",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "is_deleted": {
+          "name": "is_deleted",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "messages_thread_id_threads_thread_id_fk": {
+          "name": "messages_thread_id_threads_thread_id_fk",
+          "tableFrom": "messages",
+          "tableTo": "threads",
+          "columnsFrom": [
+            "thread_id"
+          ],
+          "columnsTo": [
+            "thread_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "thread_id_check": {
+          "name": "thread_id_check",
+          "value": "\"messages\".\"thread_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "message_id_check": {
+          "name": "message_id_check",
+          "value": "\"messages\".\"message_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "author_id_check": {
+          "name": "author_id_check",
+          "value": "\"messages\".\"author_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "dm_message_id_check": {
+          "name": "dm_message_id_check",
+          "value": "\"messages\".\"staff_relayed_message_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "user_dm_message_id_check": {
+          "name": "user_dm_message_id_check",
+          "value": "\"messages\".\"user_dm_message_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "message_type_check": {
+          "name": "message_type_check",
+          "value": "(\n            \"messages\".\"is_staff\" = 1\n            AND \"messages\".\"staff_relayed_message_id\" IS NOT NULL\n            AND \"messages\".\"user_dm_message_id\" IS NULL)\n          OR\n          (\n            \"messages\".\"is_staff\" = 0\n            AND \"messages\".\"user_dm_message_id\" IS NOT NULL\n            AND \"messages\".\"staff_relayed_message_id\" IS NULL\n          )"
+        },
+        "staff_metadata_check": {
+          "name": "staff_metadata_check",
+          "value": "\n        \"messages\".\"is_staff\" = 0\n        OR\n        (\n          \"messages\".\"is_staff\" = 1\n          AND \"messages\".\"is_anonymous\" IS NOT NULL\n          AND \"messages\".\"is_plain_text\" IS NOT NULL\n          AND \"messages\".\"is_snippet\" IS NOT NULL\n        )"
+        }
+      }
+    },
+    "config": {
+      "name": "config",
+      "columns": {
+        "guild_id": {
+          "name": "guild_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "open_tag_id": {
+          "name": "open_tag_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "prefix": {
+          "name": "prefix",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "forum_channel_id": {
+          "name": "forum_channel_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "logs_channel_id": {
+          "name": "logs_channel_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "required_role_ids": {
+          "name": "required_role_ids",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "initial_message": {
+          "name": "initial_message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "anonymous_snippets": {
+          "name": "anonymous_snippets",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "guild_id_check": {
+          "name": "guild_id_check",
+          "value": "\"config\".\"guild_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "open_tag_id_check": {
+          "name": "open_tag_id_check",
+          "value": "\"config\".\"open_tag_id\" NOT GLOB '*[^0-9]*'"
+        }
+      }
+    },
+    "snippets": {
+      "name": "snippets",
+      "columns": {
+        "guild_id": {
+          "name": "guild_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "guild_id_check": {
+          "name": "guild_id_check",
+          "value": "\"snippets\".\"guild_id\" NOT GLOB '*[^0-9]*'"
+        }
+      }
+    },
+    "threads": {
+      "name": "threads",
+      "columns": {
+        "guild_id": {
+          "name": "guild_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "thread_id": {
+          "name": "thread_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "recipient_id": {
+          "name": "recipient_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'\"2025-05-18T22:03:13.440Z\"'"
+        },
+        "closed_at": {
+          "name": "closed_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "closed_by": {
+          "name": "closed_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "guild_id_check": {
+          "name": "guild_id_check",
+          "value": "\"threads\".\"guild_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "thread_id_check": {
+          "name": "thread_id_check",
+          "value": "\"threads\".\"thread_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "recipient_id_check": {
+          "name": "recipient_id_check",
+          "value": "\"threads\".\"recipient_id\" NOT GLOB '*[^0-9]*'"
+        },
+        "closedby_id_check": {
+          "name": "closedby_id_check",
+          "value": "\"threads\".\"closed_by\" IS NULL OR \"threads\".\"closed_by\" NOT GLOB '*[^0-9]*'"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}
