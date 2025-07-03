@@ -1,24 +1,3 @@
-# sushii-modmail
-
-Discord ModMail bot utilizing forum channels to preserve previous ModMail
-threads entirely on Discord. Search past threads directly on Discord without
-needing a custom web UI.
-
-<p align="center">
-  <img
-    src="https://github.com/sushiibot/sushii-modmail/blob/main/images/01_forum_list.png?raw=true"
-    alt="Thread List"
-    width="500"
-    style="vertical-align: top;"
-  />
-  <img
-    src="https://github.com/sushiibot/sushii-modmail/blob/main/images/02_thread.png?raw=true"
-    alt="Modmail Thread"
-    width="500"
-    style="vertical-align: top;"
-  />
-</p>
-
 ## Features
 
 Focused on simplicity and user experience, sushii-modmail provides:
@@ -72,13 +51,6 @@ Snippets
   them. Closing threads only changes things on the staff side, so it doesn't
   make sense to show the user anything.
 
-## Deployment
-
-The recommended way to run sushii-modmail is via Docker. It uses an embedded
-SQLite database, so no separate database service is required.
-
-Images are built and published to [Github container registry](https://github.com/sushiibot/sushii-modmail/pkgs/container/modmail). 
-
 > [!NOTE]
 > sushii-modmail follows a rolling-release model. Each commit is built and
 > tagged with it's short SHA hash. There are no fixed (e.g. `v1.0.0`) releases.
@@ -97,7 +69,7 @@ Example Docker compose file with all the environment variables
 ```yml
 services:
   modmail:
-    name: sushii-modmail
+    name: modmail
     image: ghcr.io/sushiibot/modmail:latest
     restart: unless-stopped
     volumes:
@@ -140,7 +112,7 @@ Once the bot is running, check out the:
 
 ## Development
 
-sushii-modmail uses [Bun](https://bun.sh/) for development and runtime.
+modmail uses [Bun](https://bun.sh/) for development and runtime.
 
 ```bash
 # Install dependencies
